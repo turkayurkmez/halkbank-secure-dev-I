@@ -1,7 +1,20 @@
+using AuthNZ.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = "/Users/Login";
+                    option.ReturnUrlParameter = "gidilecekSayfa";
+                    option.AccessDeniedPath = "/Users/AccessDenied";
+                    
+                });
+
+builder.Services.AddScoped<IUserService,UserService>();
 
 var app = builder.Build();
 
@@ -13,11 +26,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
