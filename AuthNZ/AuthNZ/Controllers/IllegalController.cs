@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthNZ.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin,Editor")]
     public class IllegalController : Controller
     {
         public IActionResult Index()

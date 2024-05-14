@@ -66,7 +66,7 @@ namespace AuthNZ.Controllers
 
                 var passwordHash = "";
                 //Not: Bu işlem, artık user service instance'inin görevi....
-                BCrypt.Net.BCrypt.Verify(user.Password, passwordHash);
+               // BCrypt.Net.BCrypt.Verify(user.Password, passwordHash);
 
                 var validatedUser = userService.ValidateUser(user.UserName, user.Password);
                 if (validatedUser != null)
@@ -98,6 +98,17 @@ namespace AuthNZ.Controllers
             return View();
                 
 
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
