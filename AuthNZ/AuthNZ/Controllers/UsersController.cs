@@ -13,7 +13,7 @@ namespace AuthNZ.Controllers
         [HttpGet]
         public IActionResult RegisterUser()
         {
-            //bu action'dan sadece "müşteri" rolüne dahil olunabilir.
+          
             return View();
         }
 
