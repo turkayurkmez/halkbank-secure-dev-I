@@ -13,7 +13,7 @@
             $.ajax({
                 url:'https://localhost:7055/WeatherForecast',
                 headers:{
-                    'Authorization':'Basic '+btoa('turkay:123')
+                    'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia3VicmEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDbGllbnQiLCJuYmYiOjE3MTU3NjQzODMsImV4cCI6MTcxNzA2MDM4MywiaXNzIjoiYXBpLmhhbGtiYW5rIiwiYXVkIjoiY2xpZW50LmFwaSJ9.xpJul0qVWYphx9DvNgU7pscrhfloa9NrOW95AsFuldo'
                 },
                 method:'GET',
                 success:function(data){

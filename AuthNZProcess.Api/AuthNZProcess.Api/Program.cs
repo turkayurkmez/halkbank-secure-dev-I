@@ -1,4 +1,8 @@
 using AuthNZProcess.Api.Security;
+using AuthNZProcess.Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +12,27 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthentication("Basic")
-                .AddScheme<BasicOptions, BasicHandler>("Basic", null);
+
+//builder.Services.AddAuthentication("Basic")
+//                .AddScheme<BasicOptions, BasicHandler>("Basic", null);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(option =>
+                {
+                    option.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "api.halkbank",
+                        ValidateAudience = true,
+                        ValidAudience = "client.api",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("bu-cümle-kritik-bir-cümledir-aman-önemli")),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
+
+
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 builder.Services.AddCors(option => option.AddPolicy("allow", builder =>
 {

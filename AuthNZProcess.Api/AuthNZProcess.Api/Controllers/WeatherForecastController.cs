@@ -20,7 +20,7 @@ namespace AuthNZProcess.Api.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [Authorize]
+        [Authorize(Roles ="Client")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
