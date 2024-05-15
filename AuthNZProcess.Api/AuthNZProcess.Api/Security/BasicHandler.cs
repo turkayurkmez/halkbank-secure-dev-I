@@ -66,10 +66,14 @@ namespace AuthNZProcess.Api.Security
                     new Claim(ClaimTypes.Name,userName)
 
                 };
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity (claims);
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity (claims, Scheme.Name);
+                
+
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal (claimsIdentity);
 
+
                 AuthenticationTicket ticket = new AuthenticationTicket(claimsPrincipal, Scheme.Name);
+                
                 return Task.FromResult(AuthenticateResult.Success(ticket));
             }
             return Task.FromResult(AuthenticateResult.Fail("Hatalı giriş"));

@@ -11,6 +11,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication("Basic")
                 .AddScheme<BasicOptions, BasicHandler>("Basic", null);
 
+builder.Services.AddCors(option => option.AddPolicy("allow", builder =>
+{
+    /*
+     * http://www.halkbank.com.tr/hakkimizda
+     * https://www.halkbank.com.tr
+     * https://posts.halkbank.com.tr
+     * https://www.halkbank.com.tr:8080
+     * 
+     */
+
+    builder.AllowAnyOrigin();
+    builder.AllowAnyMethod();
+    builder.AllowAnyHeader();
+
+}));
+
 
 var app = builder.Build();
 
@@ -22,6 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("allow");
 app.UseAuthentication();
 app.UseAuthorization();
 
